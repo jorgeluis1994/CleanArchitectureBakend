@@ -1,0 +1,56 @@
+# Entorno general
+bin/
+obj/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de paquetes NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Configuraciones específicas del IDE
+*.vcxproj.user
+*.rsuser
+*.vcxproj.filters
+.idea/
+*.csproj.user
+
+# Configuración de entorno local
+appsettings.Development.json
+appsettings.*.json
+
+# Archivos de lock de sistema operativo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Archivos de logs y generados
+*.log
+*.bak
+*.pid
+*.swp
+
+# Configuración global del sistema
+global.json
+
+# Archivos de depuración
+*.db
+*.pdb
+*.mdb
+
+# Otros archivos y carpetas temporales
+*.tmp
+*.temp
+*.cache
+*.lock
+*.localhistory/
+
+# Configuración para Rider/Resharper (JetBrains)
+.idea/
+*.DotSettings.user
+_ReSharper*/
