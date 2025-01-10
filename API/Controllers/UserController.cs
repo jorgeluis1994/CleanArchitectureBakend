@@ -96,7 +96,7 @@ public class UserController : ControllerBase
 
         if (!contrasenaValida)
         {
-            return Unauthorized("Contraseña incorrecta");
+            return Unauthorized(new { mensaje = "Contraseña incorrecta"});
         }
         return Ok(new { mensaje = "Login exitoso", usuario = usuario });
 
