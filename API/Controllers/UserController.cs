@@ -34,6 +34,16 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] Usuario usuario)
     {
+
+        // Verificar si el correo ya existe
+
+        var usuarioa = await _collection.Find(u => u.Correo == usuario.Correo).FirstOrDefaultAsync();
+
+        if (usuarioa != null && !string.IsNullOrEmpty(usuarioa.Correo))
+        {
+            return BadRequest("El correo se encuentra registrado.");
+        }
+  
         if (usuario == null)
         {
             return BadRequest("El usuario no puede ser nulo.");
@@ -72,26 +82,24 @@ public class UserController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        // Buscar al usuario por correo (suponiendo que el correo es único)
-        var usuario = await _collection
-            .Find(u => u.Correo == loginRequest.Correo)
-            .FirstOrDefaultAsync();
-
-        // Si el usuario no existe o el correo no coincide, retorna un error
+        // Busca el usuario en la base de datos por correo
+        var usuario = await _collection.Find(u => u.Correo == loginRequest.Correo).FirstOrDefaultAsync();
+        
         if (usuario == null)
         {
-            return Unauthorized("Correo o contraseña incorrectos.");
+            return Unauthorized("Usuario no encontrado");
+        }
+        // loginRequest.Password = BCrypt.Net.BCrypt.HashPassword(loginRequest.Password);
+
+        // Verifica la contraseña ingresada con el hash guardado
+        bool contrasenaValida = BCrypt.Net.BCrypt.Verify(loginRequest.Password, usuario.Password);
+
+        if (!contrasenaValida)
+        {
+            return Unauthorized("Contraseña incorrecta");
         }
 
-        // Si el usuario existe, devuelve los detalles del usuario
-        return Ok(new
-        {
-            id = usuario.Id,
-            nombre = usuario.Nombre,
-            correo = usuario.Correo,
-            edad = usuario.Edad,
-            direccion = usuario.Direccion
-        });
+        return Ok("Login exitoso");
     }
 
 
