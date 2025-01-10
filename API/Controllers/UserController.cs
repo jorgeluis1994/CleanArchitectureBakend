@@ -14,22 +14,19 @@ namespace MyApp.Namespace
 public class UserController : ControllerBase
 {
     private readonly IMongoCollection<Usuario> _collection;
-
     public UserController(IMongoClient mongoClient, IOptions<MongoDbSettings> settings)
     {
         var database = mongoClient.GetDatabase(settings.Value.DatabaseName);
         _collection = database.GetCollection<Usuario>("users");
     }
-
     // Acción GET
     [HttpGet]
-     public async Task<List<Usuario>> GetUsers()
+    public async Task<List<Usuario>> GetUsers()
     {
         var response=await _collection.Find(_ => true).ToListAsync(); // Obtiene todos los usuarios
 
         return response;
     }
-
     // POST: api/user
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] Usuario usuario)
@@ -101,9 +98,6 @@ public class UserController : ControllerBase
         return Ok(new { mensaje = "Login exitoso", usuario = usuario });
 
     }
-
-
-
 }
 }
 

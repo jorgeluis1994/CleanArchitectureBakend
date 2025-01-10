@@ -4,14 +4,11 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-public class jwt
+public class jwtHelp
 {
 
     public static string GenerateToken(string security,string body,int expiracionEnMinutos ){
-
-
         //Valida credencial de token 
-
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(security));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
