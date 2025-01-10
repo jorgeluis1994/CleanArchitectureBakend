@@ -12,6 +12,9 @@ public class Usuario
     [BsonElement("correo")]  // Mapea el campo "correo" de MongoDB a la propiedad Correo
     public string Correo { get; set; }
 
+    [BsonElement("password")]  // Mapea el campo "correo" de MongoDB a la propiedad Correo
+    public string Password { get; set; }
+
     [BsonElement("edad")]  // Mapea el campo "edad" de MongoDB a la propiedad Edad
     public int Edad { get; set; }
     [BsonElement("direccion")]

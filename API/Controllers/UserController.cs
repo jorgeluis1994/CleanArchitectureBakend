@@ -5,6 +5,8 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
+using BCrypt.Net;
+
 namespace MyApp.Namespace
 {
     [ApiController]
@@ -37,6 +39,10 @@ public class UserController : ControllerBase
             return BadRequest("El usuario no puede ser nulo.");
         }
 
+        // Cifra la contraseña
+        usuario.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
+
+
         // Inserta el nuevo usuario en la colección
         await _collection.InsertOneAsync(usuario);
 
@@ -63,7 +69,32 @@ public class UserController : ControllerBase
         return Ok(usuario); // Si se encuentra, devolver 200 OK con el usuario.
     }
 
-    
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+    {
+        // Buscar al usuario por correo (suponiendo que el correo es único)
+        var usuario = await _collection
+            .Find(u => u.Correo == loginRequest.Correo)
+            .FirstOrDefaultAsync();
+
+        // Si el usuario no existe o el correo no coincide, retorna un error
+        if (usuario == null)
+        {
+            return Unauthorized("Correo o contraseña incorrectos.");
+        }
+
+        // Si el usuario existe, devuelve los detalles del usuario
+        return Ok(new
+        {
+            id = usuario.Id,
+            nombre = usuario.Nombre,
+            correo = usuario.Correo,
+            edad = usuario.Edad,
+            direccion = usuario.Direccion
+        });
+    }
+
+
 
 }
 }
