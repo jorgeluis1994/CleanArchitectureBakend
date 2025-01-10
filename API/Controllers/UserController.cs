@@ -98,8 +98,8 @@ public class UserController : ControllerBase
         {
             return Unauthorized("Contraseña incorrecta");
         }
+        return Ok(new { mensaje = "Login exitoso", usuario = usuario });
 
-        return Ok("Login exitoso");
     }
 
 
