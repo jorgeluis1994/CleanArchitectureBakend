@@ -9,7 +9,7 @@ using BCrypt.Net;
 
 namespace MyApp.Namespace
 {
-    [ApiController]
+[ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
@@ -28,7 +28,7 @@ public class UserController : ControllerBase
         return response;
     }
     // POST: api/user
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> CreateUser([FromBody] Usuario usuario)
     {
 
