@@ -1,0 +1,5 @@
+C:\Users\jorge\OneDrive\Documents\net\pro\Application.dll
+C:\Users\jorge\OneDrive\Documents\net\pro\Application.deps.json
+C:\Users\jorge\OneDrive\Documents\net\pro\Application.pdb
+C:\Users\jorge\OneDrive\Documents\net\pro\Core.dll
+C:\Users\jorge\OneDrive\Documents\net\pro\Core.pdb
